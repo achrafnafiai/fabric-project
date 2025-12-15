@@ -8,12 +8,12 @@
 # META   },
 # META   "dependencies": {
 # META     "lakehouse": {
-# META       "default_lakehouse": "e650871a-e3a3-419b-acce-db9f744c428b",
+# META       "default_lakehouse": "d884e221-370b-45ae-b7c1-fda4e4a4fbd2",
 # META       "default_lakehouse_name": "lakehousecom",
-# META       "default_lakehouse_workspace_id": "fd352658-0b24-4b93-a091-6ec635bbc1c7",
+# META       "default_lakehouse_workspace_id": "edad9ba8-9b8c-44e5-823f-e4212ccf5f24",
 # META       "known_lakehouses": [
 # META         {
-# META           "id": "e650871a-e3a3-419b-acce-db9f744c428b"
+# META           "id": "d884e221-370b-45ae-b7c1-fda4e4a4fbd2"
 # META         }
 # META       ]
 # META     }
@@ -44,7 +44,7 @@ from pyspark.sql.functions import col
 
 # CELL ********************
 
-df_customer = spark.read.format("csv").option("header","true").load("Files/Bronze/dim_customer.parquet")
+df_customer = spark.read.format("csv").option("header","true").load("Files/bronze/dim_customer.csv")
 
 # METADATA ********************
 
@@ -59,7 +59,7 @@ df_customer = spark.read.format("csv").option("header","true").load("Files/Bronz
 
 # CELL ********************
 
-df_product = spark.read.format("csv").option("header","true").load("Files/Bronze/dim_product.parquet")
+df_product = spark.read.format("csv").option("header","true").load("Files/bronze/dim_product.csv")
 
 # METADATA ********************
 
@@ -74,7 +74,7 @@ df_product = spark.read.format("csv").option("header","true").load("Files/Bronze
 
 # CELL ********************
 
-df_vente = spark.read.format('csv').option('header','true').load('Files/Bronze/fact_sales.parquet')
+df_vente = spark.read.format('csv').option('header','true').load('Files/bronze/fact_sales.csv')
 
 # METADATA ********************
 
@@ -112,7 +112,7 @@ df_vente = df_vente.withColumn("total_price", col('quantity') * col('price'))
 
 # CELL ********************
 
-dim_date = spark.read.format('csv').option('header','true').load('Files/Bronze/dim_date.parquet')
+dim_date = spark.read.format('csv').option('header','true').load('Files/bronze/dim_date.csv')
 
 # METADATA ********************
 
