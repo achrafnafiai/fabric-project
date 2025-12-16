@@ -1,5 +1,424 @@
 {
   "properties": {
-    "activities": []
+    "activities": [
+      {
+        "name": "dim_custmer",
+        "type": "Copy",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "source": {
+            "type": "ParquetSource",
+            "storeSettings": {
+              "type": "LakehouseReadSettings",
+              "recursive": true,
+              "enablePartitionDiscovery": false
+            },
+            "formatSettings": {
+              "type": "ParquetReadSettings"
+            },
+            "datasetSettings": {
+              "annotations": [],
+              "connectionSettings": {
+                "name": "d779c06a_21c2_42b8_8948_d8b9168c2593",
+                "properties": {
+                  "annotations": [],
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "workspaceId": "@pipeline().parameters.space_work_id",
+                    "artifactId": "@pipeline().parameters.lakehouse_id",
+                    "rootFolder": "Files"
+                  },
+                  "externalReferences": {
+                    "connection": "@pipeline().parameters.connection_id"
+                  }
+                }
+              },
+              "type": "Parquet",
+              "typeProperties": {
+                "location": {
+                  "type": "LakehouseLocation",
+                  "folderPath": {
+                    "value": "@pipeline().parameters.customer_table",
+                    "type": "Expression"
+                  }
+                },
+                "compressionCodec": "snappy"
+              },
+              "schema": []
+            }
+          },
+          "sink": {
+            "type": "DataWarehouseSink",
+            "allowCopyCommand": true,
+            "copyCommandSettings": {},
+            "tableOption": "autoCreate",
+            "datasetSettings": {
+              "annotations": [],
+              "connectionSettings": {
+                "name": "c06971b7_23c7_4df9_8110_8080844e14f2",
+                "properties": {
+                  "annotations": [],
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "endpoint": "@pipeline().parameters.string_connection",
+                    "artifactId": "@pipeline().parameters.warehouse_id",
+                    "workspaceId": "@pipeline().parameters.space_work_id"
+                  },
+                  "externalReferences": {
+                    "connection": "@pipeline().parameters.connection_warehouse_id"
+                  }
+                }
+              },
+              "type": "DataWarehouseTable",
+              "schema": [],
+              "typeProperties": {
+                "schema": "gold",
+                "table": "dim_customer"
+              }
+            }
+          },
+          "enableStaging": true,
+          "translator": {
+            "type": "TabularTranslator",
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          }
+        }
+      },
+      {
+        "name": "dim_date",
+        "type": "Copy",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "source": {
+            "type": "ParquetSource",
+            "storeSettings": {
+              "type": "LakehouseReadSettings",
+              "recursive": true,
+              "enablePartitionDiscovery": false
+            },
+            "formatSettings": {
+              "type": "ParquetReadSettings"
+            },
+            "datasetSettings": {
+              "annotations": [],
+              "connectionSettings": {
+                "name": "88a9b79b_0a11_4567_b037_c25f02eef975",
+                "properties": {
+                  "annotations": [],
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "workspaceId": "@pipeline().parameters.space_work_id",
+                    "artifactId": "@pipeline().parameters.lakehouse_id",
+                    "rootFolder": "Files"
+                  },
+                  "externalReferences": {
+                    "connection": "@pipeline().parameters.connection_id"
+                  }
+                }
+              },
+              "type": "Parquet",
+              "typeProperties": {
+                "location": {
+                  "type": "LakehouseLocation",
+                  "folderPath": {
+                    "value": "@pipeline().parameters.date_table",
+                    "type": "Expression"
+                  }
+                },
+                "compressionCodec": "snappy"
+              },
+              "schema": []
+            }
+          },
+          "sink": {
+            "type": "DataWarehouseSink",
+            "allowCopyCommand": true,
+            "copyCommandSettings": {},
+            "tableOption": "autoCreate",
+            "datasetSettings": {
+              "annotations": [],
+              "connectionSettings": {
+                "name": "a58bb697_ab02_44d3_8b41_3c72425b8f0c",
+                "properties": {
+                  "annotations": [],
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "endpoint": "@pipeline().parameters.string_connection",
+                    "artifactId": "@pipeline().parameters.warehouse_id",
+                    "workspaceId": "@pipeline().parameters.space_work_id"
+                  },
+                  "externalReferences": {
+                    "connection": "@pipeline().parameters.connection_warehouse_id"
+                  }
+                }
+              },
+              "type": "DataWarehouseTable",
+              "schema": [],
+              "typeProperties": {
+                "schema": "gold",
+                "table": "dim_date"
+              }
+            }
+          },
+          "enableStaging": true,
+          "translator": {
+            "type": "TabularTranslator",
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          }
+        }
+      },
+      {
+        "name": "dim_produit",
+        "type": "Copy",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "source": {
+            "type": "ParquetSource",
+            "storeSettings": {
+              "type": "LakehouseReadSettings",
+              "recursive": true,
+              "enablePartitionDiscovery": false
+            },
+            "formatSettings": {
+              "type": "ParquetReadSettings"
+            },
+            "datasetSettings": {
+              "annotations": [],
+              "connectionSettings": {
+                "name": "b0fa571b_8878_4058_8fc6_cfdbe281482e",
+                "properties": {
+                  "annotations": [],
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "workspaceId": "@pipeline().parameters.space_work_id",
+                    "artifactId": "@pipeline().parameters.lakehouse_id",
+                    "rootFolder": "Files"
+                  },
+                  "externalReferences": {
+                    "connection": "@pipeline().parameters.connection_id"
+                  }
+                }
+              },
+              "type": "Parquet",
+              "typeProperties": {
+                "location": {
+                  "type": "LakehouseLocation",
+                  "folderPath": {
+                    "value": "@pipeline().parameters.produit_table",
+                    "type": "Expression"
+                  }
+                },
+                "compressionCodec": "snappy"
+              },
+              "schema": []
+            }
+          },
+          "sink": {
+            "type": "DataWarehouseSink",
+            "allowCopyCommand": true,
+            "copyCommandSettings": {},
+            "tableOption": "autoCreate",
+            "datasetSettings": {
+              "annotations": [],
+              "connectionSettings": {
+                "name": "97936f14_cecb_4f59_b4b7_0e9fb6d14041",
+                "properties": {
+                  "annotations": [],
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "endpoint": "@pipeline().parameters.string_connection",
+                    "artifactId": "@pipeline().parameters.warehouse_id",
+                    "workspaceId": "@pipeline().parameters.space_work_id"
+                  },
+                  "externalReferences": {
+                    "connection": "@pipeline().parameters.connection_warehouse_id"
+                  }
+                }
+              },
+              "type": "DataWarehouseTable",
+              "schema": [],
+              "typeProperties": {
+                "schema": "gold",
+                "table": "dim_produit"
+              }
+            }
+          },
+          "enableStaging": true,
+          "translator": {
+            "type": "TabularTranslator",
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          }
+        }
+      },
+      {
+        "name": "sale",
+        "type": "Copy",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "source": {
+            "type": "ParquetSource",
+            "storeSettings": {
+              "type": "LakehouseReadSettings",
+              "recursive": true,
+              "enablePartitionDiscovery": false
+            },
+            "formatSettings": {
+              "type": "ParquetReadSettings"
+            },
+            "datasetSettings": {
+              "annotations": [],
+              "connectionSettings": {
+                "name": "2f5e8864_c9dd_4bf5_8204_0319091c6ffe",
+                "properties": {
+                  "annotations": [],
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "workspaceId": "@pipeline().parameters.space_work_id",
+                    "artifactId": "@pipeline().parameters.lakehouse_id",
+                    "rootFolder": "Files"
+                  },
+                  "externalReferences": {
+                    "connection": "@pipeline().parameters.connection_id"
+                  }
+                }
+              },
+              "type": "Parquet",
+              "typeProperties": {
+                "location": {
+                  "type": "LakehouseLocation",
+                  "folderPath": {
+                    "value": "@pipeline().parameters.sale_table",
+                    "type": "Expression"
+                  }
+                },
+                "compressionCodec": "snappy"
+              },
+              "schema": []
+            }
+          },
+          "sink": {
+            "type": "DataWarehouseSink",
+            "allowCopyCommand": true,
+            "copyCommandSettings": {},
+            "tableOption": "autoCreate",
+            "datasetSettings": {
+              "annotations": [],
+              "connectionSettings": {
+                "name": "024a3ad5_f5df_4867_9d8e_3c40eac05225",
+                "properties": {
+                  "annotations": [],
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "endpoint": "@pipeline().parameters.string_connection",
+                    "artifactId": "@pipeline().parameters.warehouse_id",
+                    "workspaceId": "@pipeline().parameters.space_work_id"
+                  },
+                  "externalReferences": {
+                    "connection": "@pipeline().parameters.connection_warehouse_id"
+                  }
+                }
+              },
+              "type": "DataWarehouseTable",
+              "schema": [],
+              "typeProperties": {
+                "schema": "gold",
+                "table": "fact_vente"
+              }
+            }
+          },
+          "enableStaging": true,
+          "translator": {
+            "type": "TabularTranslator",
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          }
+        }
+      }
+    ],
+    "parameters": {
+      "connection_id": {
+        "type": "string",
+        "defaultValue": "d403b502-27a9-4cc8-af1d-7138aa99c7fb"
+      },
+      "space_work_id": {
+        "type": "string",
+        "defaultValue": "edad9ba8-9b8c-44e5-823f-e4212ccf5f24"
+      },
+      "lakehouse_id": {
+        "type": "string",
+        "defaultValue": "d884e221-370b-45ae-b7c1-fda4e4a4fbd2"
+      },
+      "connection_warehouse_id": {
+        "type": "string",
+        "defaultValue": "16ddd5fa-1ca1-413a-b896-deab9c3030b7"
+      },
+      "warehouse_id": {
+        "type": "string",
+        "defaultValue": "bdf71225-f624-4975-a3b1-a391806b240a"
+      },
+      "string_connection": {
+        "type": "string",
+        "defaultValue": "bp5r3hh4a7buxd5icykhifskma-vcn233mmtpsujar74qqszt27eq.datawarehouse.fabric.microsoft.com"
+      },
+      "customer_table": {
+        "type": "string",
+        "defaultValue": "silver/dim_custmer"
+      },
+      "date_table": {
+        "type": "string",
+        "defaultValue": "silver/dim_date"
+      },
+      "produit_table": {
+        "type": "string",
+        "defaultValue": "silver/dim_produit"
+      },
+      "sale_table": {
+        "type": "string",
+        "defaultValue": "silver/fact_vente"
+      }
+    }
   }
 }

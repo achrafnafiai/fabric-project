@@ -2,40 +2,50 @@
   "properties": {
     "activities": [
       {
+        "name": "Copy data1",
         "type": "Copy",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
         "typeProperties": {
           "source": {
             "type": "BinarySource",
+            "storeSettings": {
+              "type": "LakehouseReadSettings",
+              "recursive": true
+            },
             "formatSettings": {
               "type": "BinaryReadSettings"
             },
-            "storeSettings": {
-              "type": "LakehouseReadSettings"
-            },
             "datasetSettings": {
+              "annotations": [],
+              "connectionSettings": {
+                "name": "bfeb53e1_e6c4_4402_adda_b977753b46f7",
+                "properties": {
+                  "annotations": [],
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "workspaceId": "@pipeline().parameters.space_work_id",
+                    "artifactId": "@pipeline().parameters.lakehouse_id",
+                    "rootFolder": "Files"
+                  },
+                  "externalReferences": {
+                    "connection": "@pipeline().parameters.connection_id"
+                  }
+                }
+              },
               "type": "Binary",
               "typeProperties": {
                 "location": {
                   "type": "LakehouseLocation",
-                  "folderPath": "Source"
+                  "folderPath": "source"
                 }
-              },
-              "connectionSettings": {
-                "name": "lakehousecom",
-                "properties": {
-                  "type": "Lakehouse",
-                  "typeProperties": {
-                    "artifactId": "744c428b-db9f-acce-419b-e3a3e650871a",
-                    "workspaceId": "00000000-0000-0000-0000-000000000000",
-                    "rootFolder": "Files"
-                  },
-                  "externalReferences": {
-                    "connection": "d403b502-27a9-4cc8-af1d-7138aa99c7fb"
-                  },
-                  "annotations": []
-                }
-              },
-              "annotations": []
+              }
             }
           },
           "sink": {
@@ -44,43 +54,48 @@
               "type": "LakehouseWriteSettings"
             },
             "datasetSettings": {
+              "annotations": [],
+              "connectionSettings": {
+                "name": "e3356b4f_b57a_4909_91fa_f2a47fb8f0ea",
+                "properties": {
+                  "annotations": [],
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "workspaceId": "@pipeline().parameters.space_work_id",
+                    "artifactId": "@pipeline().parameters.lakehouse_id",
+                    "rootFolder": "Files"
+                  },
+                  "externalReferences": {
+                    "connection": "@pipeline().parameters.connection_id"
+                  }
+                }
+              },
               "type": "Binary",
               "typeProperties": {
                 "location": {
                   "type": "LakehouseLocation",
-                  "folderPath": "Bronze"
+                  "folderPath": "bronze"
                 }
-              },
-              "connectionSettings": {
-                "name": "lakehousecom",
-                "properties": {
-                  "type": "Lakehouse",
-                  "typeProperties": {
-                    "artifactId": "744c428b-db9f-acce-419b-e3a3e650871a",
-                    "workspaceId": "00000000-0000-0000-0000-000000000000",
-                    "rootFolder": "Files"
-                  },
-                  "externalReferences": {
-                    "connection": "d403b502-27a9-4cc8-af1d-7138aa99c7fb"
-                  },
-                  "annotations": []
-                }
-              },
-              "annotations": []
+              }
             }
           },
           "enableStaging": false
-        },
-        "policy": {
-          "timeout": "0.12:00:00",
-          "retry": 0,
-          "retryIntervalInSeconds": 30,
-          "secureInput": false,
-          "secureOutput": false
-        },
-        "name": "Copy data1",
-        "dependsOn": []
+        }
       }
-    ]
+    ],
+    "parameters": {
+      "connection_id": {
+        "type": "string",
+        "defaultValue": "d403b502-27a9-4cc8-af1d-7138aa99c7fb"
+      },
+      "space_work_id": {
+        "type": "string",
+        "defaultValue": "edad9ba8-9b8c-44e5-823f-e4212ccf5f24"
+      },
+      "lakehouse_id": {
+        "type": "string",
+        "defaultValue": "d884e221-370b-45ae-b7c1-fda4e4a4fbd2"
+      }
+    }
   }
 }

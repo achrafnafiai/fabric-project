@@ -1,0 +1,131 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "Invoke pipeline1",
+        "type": "InvokePipeline",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "waitOnCompletion": true,
+          "operationType": "InvokeFabricPipeline",
+          "pipelineId": {
+            "value": "@pipeline().parameters.pipeline_id",
+            "type": "Expression"
+          },
+          "workspaceId": {
+            "value": "@pipeline().parameters.workspace_id",
+            "type": "Expression"
+          },
+          "parameters": {
+            "connection_id": "d403b502-27a9-4cc8-af1d-7138aa99c7fb",
+            "space_work_id": "edad9ba8-9b8c-44e5-823f-e4212ccf5f24",
+            "lakehouse_id": "d884e221-370b-45ae-b7c1-fda4e4a4fbd2",
+            "connection_warehouse_id": "16ddd5fa-1ca1-413a-b896-deab9c3030b7",
+            "warehouse_id": "bdf71225-f624-4975-a3b1-a391806b240a",
+            "string_connection": "bp5r3hh4a7buxd5icykhifskma-vcn233mmtpsujar74qqszt27eq.datawarehouse.fabric.microsoft.com",
+            "customer_table": "silver/dim_custmer",
+            "date_table": "silver/dim_date",
+            "produit_table": "silver/dim_produit",
+            "sale_table": "silver/fact_vente"
+          }
+        },
+        "externalReferences": {
+          "connection": "52219466-d8c1-443a-a617-55887d921268"
+        }
+      },
+      {
+        "name": "Notebook1",
+        "type": "TridentNotebook",
+        "dependsOn": [
+          {
+            "activity": "Invoke pipeline1",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": {
+            "value": "@pipeline().parameters.nootbok_id",
+            "type": "Expression"
+          },
+          "workspaceId": {
+            "value": "@pipeline().parameters.workspace_id",
+            "type": "Expression"
+          }
+        }
+      },
+      {
+        "name": "Invoke pipeline2",
+        "type": "InvokePipeline",
+        "dependsOn": [
+          {
+            "activity": "Notebook1",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "waitOnCompletion": true,
+          "operationType": "InvokeFabricPipeline",
+          "pipelineId": {
+            "value": "@pipeline().parameters.pipline_gold_id",
+            "type": "Expression"
+          },
+          "workspaceId": {
+            "value": "@pipeline().parameters.workspace_id",
+            "type": "Expression"
+          },
+          "parameters": {}
+        },
+        "externalReferences": {
+          "connection": "52219466-d8c1-443a-a617-55887d921268"
+        }
+      }
+    ],
+    "parameters": {
+      "fabricpipeline_connection": {
+        "type": "string",
+        "defaultValue": "52219466-d8c1-443a-a617-55887d921268"
+      },
+      "workspace_id": {
+        "type": "string",
+        "defaultValue": "edad9ba8-9b8c-44e5-823f-e4212ccf5f24"
+      },
+      "pipeline_id": {
+        "type": "string",
+        "defaultValue": "e803caf0-b2b7-448f-b70d-b6598ace872e"
+      },
+      "nootbok_id": {
+        "type": "string",
+        "defaultValue": "342600dd-4add-4896-bb9a-574b6dae1932"
+      },
+      "pipline_gold_id": {
+        "type": "string",
+        "defaultValue": "288ae6d0-c496-4321-afa9-a1bdf787f7b3"
+      }
+    }
+  }
+}
